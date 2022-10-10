@@ -12,11 +12,15 @@ class BaseModel:
         """Constructor"""
         key_created_found = False
         key_updated_found = False
+        key_id_found = False
         datetime_format = '%Y-%d-%mT%H:%M:%S.%f'
         if kwargs:
             for key in kwargs:
                 if key == '__class__':
                     continue
+                if key == 'id':
+                    self.id = kwargs[key]
+                    key_id_found = True
                 if key == 'created_at':
                     self.created_at = datetime.datetime.strptime(
                         kwargs[key], datetime_format)
@@ -28,7 +32,8 @@ class BaseModel:
                     key_updated_found = True
                     continue
                 self.key = kwargs[key]
-        self.id = str(uuid4())
+        if key_id_found is False:
+            self.id = str(uuid4())
         if key_created_found is False:
             self.created_at = datetime.datetime.now()
         if key_updated_found is False:
