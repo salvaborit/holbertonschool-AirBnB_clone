@@ -2,7 +2,7 @@
 """Base class module"""
 
 from uuid import uuid4
-import datetime
+from datetime import datetime
 from models import storage
 
 
@@ -15,6 +15,7 @@ class BaseModel:
         key_updated_found = False
         key_id_found = False
         datetime_format = '%Y-%d-%mT%H:%M:%S.%f'
+
         if kwargs:
             for key in kwargs:
                 if key == '__class__':
@@ -23,24 +24,25 @@ class BaseModel:
                     self.id = kwargs[key]
                     key_id_found = True
                 if key == 'created_at':
-                    self.created_at = datetime.datetime.strptime(
+                    self.created_at = datetime.strptime(
                         kwargs[key], datetime_format)
                     key_created_found = True
                     continue
                 if key == 'updated_at':
-                    self.updated_at = datetime.datetime.strptime(
+                    self.updated_at = datetime.strptime(
                         kwargs[key], datetime_format)
                     key_updated_found = True
                     continue
                 self.key = kwargs[key]
         else:
             storage.save()
+
         if key_id_found is False:
             self.id = str(uuid4())
         if key_created_found is False:
-            self.created_at = datetime.datetime.now()
+            self.created_at = datetime.now()
         if key_updated_found is False:
-            self.updated_at = datetime.datetime.now()
+            self.updated_at = datetime.now()
 
     def __str__(self):
         """Prints string representation of class like this:
@@ -50,7 +52,7 @@ class BaseModel:
     def save(self):
         """Updates instance of class"""
         storage.save()
-        self.updated_at = datetime.datetime.now()
+        self.updated_at = datetime.now()
 
     def to_dict(self):
         """Returns a dictionary containing all

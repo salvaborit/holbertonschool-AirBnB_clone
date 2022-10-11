@@ -3,7 +3,6 @@
 
 
 import json
-import os.path
 
 
 class FileStorage:
@@ -12,7 +11,7 @@ class FileStorage:
     def __init__(self):
         """Constructor"""
         self.__file_path = 'file.json'
-        self.__objects = {}
+        self.__objects = []
 
     def all(self):
         """Returns '__objects' dict"""
@@ -34,6 +33,6 @@ class FileStorage:
         # if os.path.exists(self.__file_path):
         try:
             with open(self.__file_path) as file:
-                self.__objects = json.load(file)
+                self.__objects = dict(json.load(file))
         except Exception:
             pass
