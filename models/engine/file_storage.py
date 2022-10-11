@@ -12,7 +12,7 @@ class FileStorage:
     def __init__(self):
         """Constructor"""
         self.__file_path = 'file.json'
-        self.__objects = []
+        self.__objects = {}
 
     def all(self):
         """Returns '__objects' dict"""
