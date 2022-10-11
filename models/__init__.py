@@ -2,7 +2,7 @@
 """Engine init"""
 
 
-from engine.file_storage import FileStorage
+from file_storage import FileStorage
 
 
 storage = FileStorage()
