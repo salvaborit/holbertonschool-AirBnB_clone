@@ -3,6 +3,7 @@
 
 from uuid import uuid4
 import datetime
+from models import storage
 
 
 class BaseModel:
@@ -32,6 +33,8 @@ class BaseModel:
                     key_updated_found = True
                     continue
                 self.key = kwargs[key]
+        else:
+            storage.save()
         if key_id_found is False:
             self.id = str(uuid4())
         if key_created_found is False:
@@ -46,6 +49,7 @@ class BaseModel:
 
     def save(self):
         """Updates instance of class"""
+        storage.save()
         self.updated_at = datetime.datetime.now()
 
     def to_dict(self):
