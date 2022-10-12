@@ -35,14 +35,13 @@ class BaseModel:
                     continue
                 self.key = kwargs[key]
         else:
-            models.storage.save()
-
-        if key_id_found is False:
-            self.id = str(uuid4())
-        if key_created_found is False:
-            self.created_at = datetime.now()
-        if key_updated_found is False:
-            self.updated_at = datetime.now()
+            if key_id_found is False:
+                self.id = str(uuid4())
+            if key_created_found is False:
+                self.created_at = datetime.now()
+            if key_updated_found is False:
+                self.updated_at = datetime.now()
+            models.storage.new(self)
 
     def __str__(self):
         """Prints string representation of class like this:
