@@ -21,35 +21,22 @@ class FileStorage:
     def new(self, obj):
         """Sets a new key(obj type)/pair(obj) value
         in '__objects' dict."""
-        obj_type_str = str(type(obj))
-        self.__objects[obj_type_str] = obj
+        key = f'{obj.__class__.__name__}.{obj.id}'
+        self.__objects[key] = obj
 
     def save(self):
         """Serializes '__objects' to the JSON file (path: __file_path)"""
-        # serializable = {}
-        # for key in self.__objects:
-        #     if self.is_serializeable(self.__objects[key]):
-        #         serializable[key] = self.__objects[key]
-        #     else:
-        #         serializable[key] = self.__objects[key].to_dict()
+        serializeable_objects = {}
+        for key in self.__objects:
+            serializeable_objects[key] = self.__objects[key].to_dict()
 
         with open(self.__file_path, 'w') as file:
-            json.dump(self.__objects, file)
+            json.dump(serializeable_objects, file)
 
     def reload(self):
         """Deserializes the JSON file to '__objects' """
         try:
             with open(self.__file_path) as file:
-                self.__objects = dict(json.load(file))
+                self.__objects = json.load(file)
         except Exception:
             pass
-
-    def is_serializeable(self, obj):
-        """Checks if an obj is serializeable"""
-        serializeable = False
-        serializeable_types = [dict, list, tuple,
-                               str, int, float, False, True, None]
-        for type in serializeable_types:
-            if type(obj) is type:
-                serializeable = True
-        return serializeable
