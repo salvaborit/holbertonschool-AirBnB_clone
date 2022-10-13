@@ -30,7 +30,10 @@ class FileStorage():
         """Serializes '__objects' to the JSON file (path: __file_path)"""
         serializeable_objects = {}
         for key in self.__objects:
-            serializeable_objects[key] = self.__objects[key].to_dict()
+            if type(self.__objects[key]) is dict:
+                serializeable_objects[key] = self.__objects[key]
+            else:
+                serializeable_objects[key] = self.__objects[key].to_dict()
         with open(self.__file_path, 'w', encoding='utf-8') as file:
             json.dump(serializeable_objects, file)
 
