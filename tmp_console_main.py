@@ -3,9 +3,7 @@
 
 
 import cmd
-from models import storage
-from models.engine.file_storage import FileStorage
-from models.base_model import BaseModel
+from models import BaseModel, storage
 
 
 class HBNBCommand(cmd.Cmd):
@@ -27,15 +25,8 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, arg):
         """"""
-        if len(arg) == 0:
-            print('** class name missing **')
-        else:
-            try:
-                new_instance = eval(arg)()
-                new_instance.save()
-                print(new_instance.id)
-            except:
-                print('** class doesn\'t exist **')
+        if arg[0] == 'BaseModel':
+            storage.__objects.append(BaseModel().to_dict())
 
     def do_show(self, arg):
         """"""
