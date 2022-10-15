@@ -26,7 +26,7 @@ class HBNBCommand(cmd.Cmd):
         exit()
 
     def do_create(self, arg):
-        """Create command"""
+        """Create command: saves an instance of a class to a JSON file"""
         if len(arg) == 0:
             print('** class name missing **')
         else:
