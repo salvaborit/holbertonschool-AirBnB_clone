@@ -38,8 +38,8 @@ class HBNBCommand(cmd.Cmd):
                 print('** class doesn\'t exist **')
 
     def do_show(self, arg):
-        """Prints an instance string representation
-         based on class name and id"""
+        """Prints an instance's string representation
+        based on class name and id"""
 
     def do_destroy(self, arg):
         """"""
