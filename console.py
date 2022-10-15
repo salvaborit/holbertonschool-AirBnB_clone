@@ -3,7 +3,7 @@
 
 
 import cmd
-from models import storage
+import models
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
 
@@ -38,7 +38,8 @@ class HBNBCommand(cmd.Cmd):
                 print('** class doesn\'t exist **')
 
     def do_show(self, arg):
-        """"""
+        """Prints an instance string representation
+         based on class name and id"""
 
     def do_destroy(self, arg):
         """"""
