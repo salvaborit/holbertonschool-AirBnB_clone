@@ -119,7 +119,7 @@ class HBNBCommand(cmd.Cmd):
                     setattr(obj, argv[2], argv[3])
                     inst_found = True
             if inst_found is False:
-                print('** no instance found **')
+                print('** class doesn\'t exist **')
 
     # def inst_validator(self, inst_name, inst_id):
     #     """Checks if an instance/id pair exists and logs in a dict"""
