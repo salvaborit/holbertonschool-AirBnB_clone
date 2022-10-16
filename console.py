@@ -97,26 +97,44 @@ class HBNBCommand(cmd.Cmd):
                 print('** class doesn\'t exist **')
 
     def do_update(self, arg):
-        """ """
-
-    def inst_validator(self, inst_name, inst_id):
-        """Checks if an instance/id pair exists and logs in a dict"""
-        dict = {}
-        try:
-            eval(inst_name)
-            dict['class'] = True
+        """Updates an instance based on the class name
+        and id by adding or updating attribute"""
+        argv = arg.split()
+        if len(argv) == 0:
+            print('** class name missing **')
+        elif len(argv) == 1:
+            print('** instance id missing **')
+        elif len(argv) == 2:
+            print('** attribute name missing **')
+        elif len(argv) == 3:
+            print('** value missing **')
+        else:
             try:
-                storage_dict = storage.all()
-                instance = storage_dict[f'{inst_name}.{inst_id}']
-                print(instance)
-                dict['id'] = True
+                eval(argv[0])
             except:
-                dict['id'] = False
-                print('** id doesn\'t exist **')
-        except:
-            dict['class'] = False
-            print('** class doesn\'t exist **')
-        return dict
+                print('** class doesn\'t exist **')
+            for obj_id, obj in storage.all().items():
+                if obj_id == f'{argv[0]}.{argv[1]}':
+                    setattr(obj, argv[2], argv[3])
+
+    # def inst_validator(self, inst_name, inst_id):
+    #     """Checks if an instance/id pair exists and logs in a dict"""
+    #     dict = {}
+    #     try:
+    #         eval(inst_name)
+    #         dict['class'] = True
+    #         try:
+    #             storage_dict = storage.all()
+    #             instance = storage_dict[f'{inst_name}.{inst_id}']
+    #             print(instance)
+    #             dict['id'] = True
+    #         except:
+    #             dict['id'] = False
+    #             print('** id doesn\'t exist **')
+    #     except:
+    #         dict['class'] = False
+    #         print('** class doesn\'t exist **')
+    #     return dict
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
