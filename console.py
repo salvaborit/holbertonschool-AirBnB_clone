@@ -7,6 +7,7 @@ from sys import argv
 import models
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
+from models.user import User
 from models import storage
 
 
