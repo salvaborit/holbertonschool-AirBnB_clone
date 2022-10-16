@@ -4,6 +4,7 @@
 
 import json
 from models.base_model import BaseModel
+from models.user import User
 
 
 class FileStorage():
@@ -30,10 +31,10 @@ class FileStorage():
 
     def reload(self):
         """Deserializes the JSON file to '__objects' """
-        from models.base_model import BaseModel
         try:
             with open(self.__file_path) as file:
                 for key, value in json.load(file).items():
-                    self.__objects[key] = BaseModel(**value)
+                    inst_class = key.split('.')
+                    self.__objects[key] = eval(inst_class)(**value)
         except:
             pass
