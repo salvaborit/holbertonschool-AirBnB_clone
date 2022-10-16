@@ -74,7 +74,7 @@ class HBNBCommand(cmd.Cmd):
                     del storage.all()[f'{argv[0]}.{argv[1]}']
                     storage.save()
                 except:
-                    print('** ** no instance found ** **')
+                    print('** no instance found **')
             except:
                 print('** class doesn\'t exist **')
 
