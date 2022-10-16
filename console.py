@@ -3,6 +3,7 @@
 
 
 import cmd
+from sys import argv
 import models
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
@@ -50,8 +51,8 @@ class HBNBCommand(cmd.Cmd):
             try:
                 eval(argv[0])
                 try:
-                    storage_dict = storage.all()
-                    instance = storage_dict[f'{argv[0]}.{argv[1]}']
+                    storage_d = storage.all()
+                    instance = storage_d[f'{argv[0]}.{argv[1]}']
                     print(instance)
                 except:
                     print('** id doesn\'t exist **')
@@ -59,18 +60,63 @@ class HBNBCommand(cmd.Cmd):
                 print('** class doesn\'t exist **')
 
     def do_destroy(self, arg):
-        """ """
+        """Deletes an instance based on the class name
+        and id (save the change into the JSON file)"""
+        argv = arg.split()
+        if len(argv) == 0:
+            print('** class name missing **')
+        elif len(argv) == 1:
+            print('** instance id missing **')
+        else:
+            try:
+                eval(argv[0])()
+                try:
+                    del storage.all()[f'{argv[0]}.{argv[1]}']
+                    storage.save()
+                except:
+                    print('** ** no instance found ** **')
+            except:
+                print('** class doesn\'t exist **')
 
     def do_all(self, arg):
-        """ """
+        """Prints all string representation of all
+        instances based or not on the class name"""
+        argv = arg.split()
+        instance_l = []
+        if len(argv) == 0:
+            print(storage.all())
+        else:
+            try:
+                eval(argv[0])
+                for key in storage.all():
+                    key_d = key.split('.')
+                    if key_d[0] == str(argv[0]):
+                        instance_l.append(str(storage.all()[key]))
+                print(instance_l)
+            except:
+                print('** class doesn\'t exist **')
 
     def do_update(self, arg):
         """ """
 
-    def inst_validator(self, arg):
-        """Returns true if an ID corresponds to an existent
-        instance in 'storage.__objects' exists"""
-        arg
+    def inst_validator(self, inst_name, inst_id):
+        """Checks if an instance/id pair exists and logs in a dict"""
+        dict = {}
+        try:
+            eval(inst_name)
+            dict['class'] = True
+            try:
+                storage_dict = storage.all()
+                instance = storage_dict[f'{inst_name}.{inst_id}']
+                print(instance)
+                dict['id'] = True
+            except:
+                dict['id'] = False
+                print('** id doesn\'t exist **')
+        except:
+            dict['class'] = False
+            print('** class doesn\'t exist **')
+        return dict
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
