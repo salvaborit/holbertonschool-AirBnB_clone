@@ -55,7 +55,7 @@ class HBNBCommand(cmd.Cmd):
                     instance = storage_d[f'{argv[0]}.{argv[1]}']
                     print(instance)
                 except:
-                    print('** id doesn\'t exist **')
+                    print('** no instance found ** **')
             except:
                 print('** class doesn\'t exist **')
 
