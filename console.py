@@ -56,6 +56,7 @@ class HBNBCommand(cmd.Cmd):
                     print(instance)
                 except:
                     print('** no instance found **')
+                    return
             except:
                 print('** class doesn\'t exist **')
 
@@ -75,6 +76,7 @@ class HBNBCommand(cmd.Cmd):
                     storage.save()
                 except:
                     print('** no instance found **')
+                    return
             except:
                 print('** class doesn\'t exist **')
 
