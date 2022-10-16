@@ -113,9 +113,13 @@ class HBNBCommand(cmd.Cmd):
                 eval(argv[0])
             except:
                 print('** class doesn\'t exist **')
+            inst_found = False
             for obj_id, obj in storage.all().items():
                 if obj_id == f'{argv[0]}.{argv[1]}':
                     setattr(obj, argv[2], argv[3])
+                    inst_found = True
+            if inst_found is False:
+                print('** no instance found **')
 
     # def inst_validator(self, inst_name, inst_id):
     #     """Checks if an instance/id pair exists and logs in a dict"""
