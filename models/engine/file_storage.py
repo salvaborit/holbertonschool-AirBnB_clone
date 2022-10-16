@@ -5,6 +5,11 @@
 import json
 from models.base_model import BaseModel
 from models.user import User
+from models.place import Place
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.amenity import Review
 
 
 class FileStorage():
@@ -34,7 +39,6 @@ class FileStorage():
         try:
             with open(self.__file_path) as file:
                 for key, value in json.load(file).items():
-                    inst_class = key.split('.')
-                    self.__objects[key] = eval(inst_class)(**value)
+                    self.__objects[key] = eval(value['__class__'])(**value)
         except:
             pass
