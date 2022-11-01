@@ -129,21 +129,5 @@ class HBNBCommand(cmd.Cmd):
             if inst_found is False:
                 print('** no instance found **')
 
-    def inst_validator(self, inst_name, inst_id):
-        """Checks if an instance/id pair exists and logs in a dict"""
-        dict = {}
-        try:
-            eval(inst_name)
-            dict['class'] = True
-            try:
-                storage_dict = storage.all()
-                instance = storage_dict[f'{inst_name}.{inst_id}']
-                dict['id'] = True
-            except:
-                dict['id'] = False
-        except:
-            dict['class'] = False
-        return dict
-
 if __name__ == '__main__':
     HBNBCommand().cmdloop()

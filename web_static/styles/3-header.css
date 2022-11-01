@@ -1,0 +1,14 @@
+.header-main {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    background-color: #ffffff;
+    height: 70px;
+    width: 100%;
+    border-bottom: 1px solid #cccccc;
+    background-image: url(../images/logo.png);
+    background-repeat: no-repeat;
+    background-position-x: 20px;
+    background-position-y: center;
+}
